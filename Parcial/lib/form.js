@@ -10,8 +10,8 @@ export class Form{
 
         //Parses the current form to an object
         let obj = {};
-        let inputs = [...document.querySelectorAll('input')].filter( a => !a.classList.contains('filter'));
-        let options = [...document.getElementsByTagName('option')].filter(a => !a.classList.contains('filter'));
+        let inputs = [...document.querySelectorAll('input')].filter( a => !a.classList.contains('filter') && !a.classList.contains('promedio'));
+        let options = [...document.getElementsByTagName('option')].filter(a => !a.classList.contains('filter') && !a.classList.contains('promedio'));
         let transaccion;
 
         inputs.forEach(input => {            
@@ -20,7 +20,7 @@ export class Form{
         });
 
         options.forEach(option => { 
-            if(option.selected) transaccion = item.option;
+            if(option.selected) transaccion = option.value;
         });
 
         if(transaccion && obj) obj['transaccion'] = transaccion;
@@ -71,10 +71,10 @@ export class Form{
     static populateForm(selectedRow){
 
         //Populates form from data obtained from the selected row
-        let inputs = [...document.querySelectorAll('input')].filter(a => !a.classList.contains('filter'));
         let keys = Table.getKeys();
         let transaccion = keys.indexOf('transaccion');
-        let options = [...document.getElementsByTagName('option')].filter(a => !a.classList.contains('filter'));
+        let inputs = [...document.querySelectorAll('input')].filter( a => !a.classList.contains('filter') && !a.classList.contains('promedio'));
+        let options = [...document.getElementsByTagName('option')].filter(a => !a.classList.contains('filter') && !a.classList.contains('promedio'));
 
         inputs.forEach( input => {
                 let index = keys.indexOf(input.name);

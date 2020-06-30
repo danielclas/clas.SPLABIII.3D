@@ -18,24 +18,28 @@
             <img class="navbar-brand" src="./assets/logo.svg" alt="Logo">
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">Active</a>
+                  <a class="nav-link active" href="#">Nosotros</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="#">Blog</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="#">Anuncios</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Disabled</a>
+                  <a class="nav-link" href="#">Contacto</a>
                 </li>
               </ul>
-        </nav>
+        </nav>        
+
+        <div id="imgContainer">
+            <img id="banner" src="./assets/banner.jpg" alt="Banner">
+        </div>    
         
         <!-- No se utiliza si se trabaja con localStorage -->     
-        <!-- <div id="modal">
+        <div id="modal">
             <img src="assets/spinner.svg" alt="Spinner" id="modal-content">
-        </div> -->
+        </div>
         
         <h1>Administración</h1>
         <fieldset>
@@ -170,6 +174,32 @@
                 <div class="btn-toolbar justify-content-center" role="toolbar">
                     <div id="btnGroup" class="btn-group row" role="group">
                         <button id="resetBtn" type="button" class="btn btn-outline-primary">Resetear vista</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-4 text-center">
+                        <h5 class="card-title text-center">Filtrar Transacción</h5>
+                    </div>
+                    <div class="col-6 text-center">                        
+                        <h5 class="card-title text-center">Promedio</h5>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <select id="promedioSelect" name="transaccion">
+                            <option class="promedio" value="" selected>Elija una transaccion</option>
+                            <option class="promedio" value="Venta">Venta</option>
+                            <option class="promedio" value="Alquiler">Alquiler</option>
+                            <option class="promedio" value="Permuta">Permuta</option>
+                        </select>                           
+                    </div>
+                    <div class="col-6">                        
+                        <input disabled class="promedio" placeholder="N/A" id="promedioOutput" type="text" aria-label="Last name" class="form-control">
                     </div>
                 </div>
             </div>

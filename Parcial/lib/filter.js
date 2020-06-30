@@ -3,30 +3,41 @@ import {DAO} from './dao.js';
 import { Form } from './form.js';
 
 let btnGroup;
+
 export class Filter{
 
     static initFilter(){
 
         if(btnGroup) return;
 
+        let resetBtn = document.getElementById('resetBtn');
         let keys = Table.getKeys();
         let normalizedKeys = Table.getNormalizedKeys();
+        let cols = JSON.parse(localStorage.getItem('cols'));
 
+        resetBtn.onclick = this.resetView;
+        resetBtn.disabled = true;
+
+        if(cols && cols.length>0) Filter.filterTableOnInit(cols);
+        
         btnGroup = document.getElementById('btnGroup');
 
         for(let i=1 ; i<keys.length ; i++){
             let btn = document.createElement('button');
+            let enabled = true;
+
+            if(cols) enabled = cols.indexOf(keys[i]) != -1;
+            enabled = enabled ? '-primary' : '-secondary';
+
             btn.type = "button";
-            btn.classList.add('btn','btn-primary','filterBtn');
+            btn.classList.add('btn','btn'+enabled,'filterBtn');
             btn.innerHTML = normalizedKeys[i];
             btn.id = keys[i]+"Btn";
             btn.onclick = this.filterTableFromButton;
             btnGroup.appendChild(btn);
         }        
 
-        let resetBtn = document.getElementById('resetBtn');
-        resetBtn.onclick = this.resetView;
-        resetBtn.disabled = true;
+        localStorage.setItem('cols',JSON.stringify(cols ? cols : []));
     }
 
     static filterTableFromButton(e){
@@ -39,18 +50,44 @@ export class Filter{
             btn.classList.remove('btn-primary');
             btn.classList.add('btn-secondary');
             Table.showColumn(index,false);
+            Filter.addColToLocalStorage(id, false);
             document.getElementById('resetBtn').disabled = false;
         }else{
             btn.classList.remove('btn-secondary');
             btn.classList.add('btn-primary');
             Table.showColumn(index,true);
+            Filter.addColToLocalStorage(id, true);
             document.getElementById('resetBtn').disabled = document.getElementsByClassName('btn-secondary').length == 0;
         }             
 
         if(document.getElementsByClassName('filterBtn btn-secondary').length == 0){
             document.getElementById('resetBtn').disabled = true;
         }
-    }        
+    }
+
+    static addColToLocalStorage(id, add){
+
+        //If not add, then remove
+        let cols = JSON.parse(localStorage.getItem('cols'));
+        let index = cols.indexOf(id);
+
+        if(add && index == -1) cols.push(id);
+        else if(!add && index != -1) cols.splice(index,1);
+
+        localStorage.setItem('cols', JSON.stringify(cols));
+    }
+
+    static filterTableOnInit(cols){
+
+        let keys = Table.getKeys();
+
+        for(let i=1 ; i<keys.length ; i++){
+            let show = cols.indexOf(keys[i]) != -1;
+            Table.showColumn(i, show);
+        }
+
+        document.getElementById('resetBtn').disabled = false;
+    }
 
     static filterTableFromTh(e){
 
@@ -139,14 +176,32 @@ export class Filter{
             }
             else input.value = "";
         });
+
+        localStorage.setItem('cols', JSON.stringify(Table.getKeys()));
     }
 
-    static hideForm(){
+    static getAverage(){
 
-        let hideBtn = document.getElementById('hidefilters');
-        let filters = document.getElementById('filterForm');
+        let output = document.getElementById('promedioOutput');
+        let options = [...document.getElementsByClassName('promedio')];
+        let data = DAO.getDataCopy();
+        let transaccion;
 
-        filters.style.display = filters.style.display == 'none' ? '' : 'none';
-        hideBtn.innerHTML = hideBtn.innerHTML == 'Ocultar' ? 'Mostrar' : 'Ocultar';
+        options.forEach( o => {
+            if(o.selected) transaccion = o.value.toLowerCase();
+        });
+
+        if(transaccion == ""){
+            output.value = "N/A";
+            return;
+        }
+
+        //Reduce
+        let acum = data.reduce((sum, obj) => {
+            return sum += obj.transaccion.toLowerCase() === transaccion ? parseInt(obj.precio) : 0;
+        }, 0);
+
+        output.value = acum;
+
     }
 }

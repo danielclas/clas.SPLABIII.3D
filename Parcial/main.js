@@ -4,9 +4,11 @@ import {Form} from './lib/form.js';
 import {Notify} from './lib/notify.js';
 import {Filter} from './lib/filter.js';
 
-DAO.initLocalStorage();
-DAO.getFromLocalStorage();
-// DAO.getFromServer();
+import {transacciones} from './lib/ts/enum.js';
+
+console.log(transacciones);
+
+DAO.getFromServer();
 
 let form = document.getElementById('form');
 let filterForm = document.getElementById('filterForm');
@@ -15,16 +17,13 @@ let deleteBtn = document.getElementById('deleteBtn');
 let cancelBtn = document.getElementById('cancelBtn');
 let filterBtn = document.getElementById('btnFiltrar');
 let hideFormBtn = document.getElementById('hideform');
-let hideFiltersBtn = document.getElementById('hidefilters');
+let promedioSelect = document.getElementById('promedioSelect');
 
-//Cambiar a save/delete from localStorage de ser necesario
-saveBtn.onclick = DAO.saveToLocalStorage;
-deleteBtn.onclick = DAO.deleteFromLocalStorage;
-// saveBtn.onclick = DAO.saveToServer;
-// deleteBtn.onclick = DAO.deleteFromServer;
+saveBtn.onclick = DAO.saveToServer;
+deleteBtn.onclick = DAO.deleteFromServer;
 cancelBtn.onclick = Form.cancelEdit;
 hideFormBtn.onclick = Form.hideForm;
-hideFiltersBtn.onclick = Filter.hideForm;
+promedioSelect.onchange = Filter.getAverage;
 
 deleteBtn.style.display = 'none';
 cancelBtn.style.display = 'none';
