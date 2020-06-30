@@ -1,9 +1,6 @@
-"use strict";
-exports.__esModule = true;
-exports.transacciones = void 0;
-var transacciones;
-(function (transacciones) {
-    transacciones[transacciones["Venta"] = 0] = "Venta";
-    transacciones[transacciones["Alquiler"] = 1] = "Alquiler";
-    transacciones[transacciones["Permuta"] = 2] = "Permuta";
-})(transacciones = exports.transacciones || (exports.transacciones = {}));
+export var Transacciones;
+(function (Transacciones) {
+    Transacciones[Transacciones["Venta"] = 0] = "Venta";
+    Transacciones[Transacciones["Alquiler"] = 1] = "Alquiler";
+    Transacciones[Transacciones["Permuta"] = 2] = "Permuta";
+})(Transacciones || (Transacciones = {}));

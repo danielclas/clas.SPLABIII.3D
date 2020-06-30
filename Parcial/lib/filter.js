@@ -186,6 +186,7 @@ export class Filter{
         let options = [...document.getElementsByClassName('promedio')];
         let data = DAO.getDataCopy();
         let transaccion;
+        let count = 0;
 
         options.forEach( o => {
             if(o.selected) transaccion = o.value.toLowerCase();
@@ -198,10 +199,15 @@ export class Filter{
 
         //Reduce
         let acum = data.reduce((sum, obj) => {
-            return sum += obj.transaccion.toLowerCase() === transaccion ? parseInt(obj.precio) : 0;
+
+            if(obj.transaccion.toLowerCase() == transaccion){
+                sum+= parseInt(obj.precio);
+                count++;
+            }
+
+            return sum;
         }, 0);
 
-        output.value = acum;
-
+        output.value = acum/count;
     }
 }

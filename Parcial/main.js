@@ -4,10 +4,6 @@ import {Form} from './lib/form.js';
 import {Notify} from './lib/notify.js';
 import {Filter} from './lib/filter.js';
 
-import {transacciones} from './lib/ts/enum.js';
-
-console.log(transacciones);
-
 DAO.getFromServer();
 
 let form = document.getElementById('form');
@@ -37,3 +33,4 @@ form.oninput = () => {
 }
 
 filterForm.onchange = () => filterBtn.disabled = false;
+Form.initForm();

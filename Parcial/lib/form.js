@@ -1,6 +1,7 @@
 import {Table} from './table.js';
 import { Notify } from './notify.js';
 import { anuncio_auto } from './anuncio.js';
+import {Transacciones} from './ts/enum.js';
 
 let form = document.getElementById('form');
 
@@ -106,5 +107,20 @@ export class Form{
         Table.unselectRow();
         Notify.invalidForm(false);
         Notify.showEditButtons(false);
+    }
+
+    static initForm(){
+
+        let values = Transacciones;
+        let container = document.getElementById('selectContainer');
+
+        for(let val in values){
+            if(isNaN(val)){
+                let option = document.createElement('option');
+                option.value = val;
+                option.innerHTML = val;
+                container.appendChild(option);
+            }
+        }
     }
 }
