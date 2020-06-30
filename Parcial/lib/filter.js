@@ -37,7 +37,7 @@ export class Filter{
             btnGroup.appendChild(btn);
         }        
 
-        localStorage.setItem('cols',JSON.stringify(cols ? cols : []));
+        localStorage.setItem('cols',JSON.stringify(cols ? cols : Table.getKeys()));
     }
 
     static filterTableFromButton(e){
