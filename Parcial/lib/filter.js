@@ -208,6 +208,6 @@ export class Filter{
             return sum;
         }, 0);
 
-        output.value = acum/count;
+        output.value = count == 0 ? 'N/A' : acum/count;
     }
 }
