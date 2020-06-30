@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="./main.js" type="module"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type = "text/css" href="./styles/styles.css"/>
+    <link rel="icon" type="image/png" href="./assets/logo.svg">
+    <title>PracticaParcial</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">            
+            <img class="navbar-brand" src="./assets/logo.svg" alt="Logo">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+              </ul>
+        </nav>
+        
+        <!-- No se utiliza si se trabaja con localStorage -->     
+        <!-- <div id="modal">
+            <img src="assets/spinner.svg" alt="Spinner" id="modal-content">
+        </div> -->
+        
+        <h1>Administración</h1>
+        <fieldset>
+            <legend>Información del anuncio
+                <button id="hideform" class="btn btn-secondary">Ocultar</button>
+            </legend>
+            <form id="form" class="item form" action="#">
+                    
+                    <input type="hidden" name="id" id="idinput">
+
+                    <label for="titulo">Titulo: </label>
+                    <input type="text" name="titulo" placeholder="Titulo">
+
+                    <label>Transacción: </label>
+                    <br>
+                    <select name="transaccion" >
+                        <option value="" disabled selected>Elija una transaccion</option>
+                        <option value="Venta">Venta</option>
+                        <option value="Alquiler">Alquiler</option>
+                        <option value="Permuta">Permuta</option>
+                    </select>
+
+                    <br>
+                    <label for="descripcion">Descripcion: </label>
+                    <input type="text" name="descripcion" placeholder="Descripcion">
+
+                    <label for="precio">Precio:</label>
+                    <input type="number" name="precio" min=0 placeholder="Precio">
+
+                    <img class="icon" src="./assets/icons/dooricon.png" alt="">
+                    <label for="num_wc">Cantidad de puertas: </label>
+                    <input type="number" name="num_puertas" min=0 max=8 placeholder="Puertas">
+                    
+                    <img class="icon" src="./assets/icons/speedicon.png" alt="">
+                    <label for="num_estacionamiento">Cantidad de KMs: </label>                
+                    <input type="number" name="num_KMs" min=0 placeholder="KM">
+                    
+                    <img class="icon" src="./assets/icons/motoricon.png" alt="">
+                    <label for="num_dormitorio">Potencia: </label>
+                    <input type="number" name="potencia" min=0 placeholder="Potencia">
+
+                    <p id="errorMsg">Error en los datos del formulario</p>
+                    <br>
+            </form>
+        </fieldset>
+
+        <div class="form">
+            <div class="card-body">
+                <h5 class="card-title text-center">Filtros</h5>
+                
+                <span id="filterForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="titulo">Titulo: </label>
+                            <input class="filter" type="text" name="titulo" placeholder="Titulo">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Transacción: </label>
+                            <br>
+                            <select name="transaccion" >
+                                <option class="filter" value="" disabled selected>Elija una transaccion</option>
+                                <option class="filter" value="Venta">Venta</option>
+                                <option class="filter" value="Alquiler">Alquiler</option>
+                                <option class="filter" value="Permuta">Permuta</option>
+                            </select>   
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="descripcion">Descripcion: </label>
+                            <input class="filter" type="text" name="descripcion" placeholder="Descripcion">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="precio">Precio mínimo:</label>
+                            <input class="filter min" type="number" name="precio" placeholder="Precio">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="precio">Precio máximo:</label>
+                            <input class="filter max" type="number" name="precio" placeholder="Precio">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img class="icon" src="./assets/icons/dooricon.png" alt="">
+                            <label for="num_wc">Cantidad de puertas mínima: </label>
+                            <input class="filter min" type="number" name="num_puertas" placeholder="Puertas">
+                        </div>
+                        <div class="col-md-6">
+                            <img class="icon" src="./assets/icons/dooricon.png" alt="">
+                            <label for="num_wc">Cantidad de puertas máxima: </label>
+                            <input class="filter max" type="number" name="num_puertas" placeholder="Puertas">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <img class="icon" src="./assets/icons/speedicon.png" alt="">
+                            <label for="num_estacionamiento">Cantidad de KMs mínimo: </label>                
+                            <input class="filter min" type="number" name="num_KMs" placeholder="KM">
+                        </div>
+                        <div class="col-md-6">                        
+                            <img class="icon" src="./assets/icons/speedicon.png" alt="">
+                            <label for="num_estacionamiento">Cantidad de KMs máximo: </label>                
+                            <input class="filter max" type="number" name="num_KMs" placeholder="KM">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img class="icon" src="./assets/icons/motoricon.png" alt="">
+                            <label for="num_dormitorio">Potencia mínima: </label>
+                            <input class="filter min" type="number" name="potencia" placeholder="Potencia">
+                        </div>
+                        <div class="col-md-6">                        
+                            <img class="icon" src="./assets/icons/motoricon.png" alt="">
+                            <label for="num_dormitorio">Potencia máxima: </label>
+                            <input class="filter max" type="number" name="potencia" placeholder="Potencia">
+                        </div>
+                    </div>
+                </span>
+                
+                <br>
+                <button id="btnFiltrar" class="btn btn-outline-primary  btn-lg btn-block"">Aplicar filtros</button>
+
+                <br>
+                <h5 class="card-title text-center">Modificar vista</h5>
+                <div class="btn-toolbar justify-content-center" role="toolbar">
+                    <div id="btnGroup" class="btn-group row" role="group">
+                        <button id="resetBtn" type="button" class="btn btn-outline-primary">Resetear vista</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tableContainer">
+            <button id="saveBtn" class="btn btn-success controlBtn"><img class="icon" src="./assets/icons/saveicon.png" alt="save">Guardar</button>
+            <button id="deleteBtn" class="btn btn-danger controlBtn"><img class="icon" src="./assets/icons/deleteicon.png" alt="delete">Eliminar</button>
+            <button id="cancelBtn" class="btn btn-warning controlBtn"><img class="icon" src="./assets/icons/cancelicon.png" alt="cancel">Cancelar</button>
+            <p id="emptyTable">No hay datos para mostrar</p>
+        </div>
+            
+        <footer class="page-footer font-small bg-light blue">
+            <div class="footer-copyright text-center py-3">
+                <a href="#form">Anuncios</a>
+                <a href="#form">Blog</a>
+                <a href="#form">Contactos</a>
+                Todos los derechos reservados 2019 &reg;
+                <a href="#form">Daniel Clas</a>
+            </div>  
+        </footer>
+    </div>
+</body>
+</html>
