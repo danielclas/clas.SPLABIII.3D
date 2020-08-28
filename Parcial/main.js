@@ -4,7 +4,9 @@ import {Form} from './lib/form.js';
 import {Notify} from './lib/notify.js';
 import {Filter} from './lib/filter.js';
 
-DAO.getFromServer();
+// DAO.getFromServer();
+DAO.initLocalStorage();
+DAO.getFromLocalStorage();
 
 let form = document.getElementById('form');
 let filterForm = document.getElementById('filterForm');
@@ -15,8 +17,8 @@ let filterBtn = document.getElementById('btnFiltrar');
 let hideFormBtn = document.getElementById('hideform');
 let promedioSelect = document.getElementById('promedioSelect');
 
-saveBtn.onclick = DAO.saveToServer;
-deleteBtn.onclick = DAO.deleteFromServer;
+saveBtn.onclick = DAO.saveToLocalStorage;
+deleteBtn.onclick = DAO.deleteFromLocalStorage;
 cancelBtn.onclick = Form.cancelEdit;
 hideFormBtn.onclick = Form.hideForm;
 promedioSelect.onchange = Filter.getAverage;
